@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { UserList, Map } from "./components";
+import { Room, User } from "./types";
+
 
 function App() {
+  const [users, setUsers] = useState<User[]>([
+    {
+      name: "Thomas",
+    },
+    {
+      name: "Alexis",
+    },
+  ]);
+
+  const [rooms, setRooms] = useState<Room[]>([
+    {
+      name: "Finistère",
+      place: 3,
+    },
+    {
+      name: "Côtes d'Armor",
+      place: 2,
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="m-4 flex">
+      <div className="mr-4">
+        <UserList users={users} />
+      </div>
+      <div className="">
+        <Map rooms={rooms} />
+      </div>
     </div>
   );
 }
