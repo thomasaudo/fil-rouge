@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { UserList, Map } from "./components";
+import { UserList, RoomList } from "./components";
+import { roomsData, usersData } from "./data";
 import { Room, User } from "./types";
 
-
 function App() {
-  const [users, setUsers] = useState<User[]>([
-    {
-      name: "Thomas",
-    },
-    {
-      name: "Alexis",
-    },
-  ]);
 
-  const [rooms, setRooms] = useState<Room[]>([
-    {
-      name: "Finistère",
-      place: 3,
-    },
-    {
-      name: "Côtes d'Armor",
-      place: 2,
-    },
-  ]);
+  // TODO: Refactor, do this inside RoomDetails or whatever, or do it with index.
+  const placeUser = (user: User, room: Room) => {
+    setUsers(users.filter((x) => x.name !== user.name));
+    let updatedRoom = rooms.find((x) => x.name === room.name);
+    if (updatedRoom) {
+      updatedRoom.users.push(user);
+      setRooms([updatedRoom, ...rooms.filter((x) => x.name !== room.name)]);
+    }
+  };
+
+  const [users, setUsers] = useState<User[]>(usersData);
+  const [rooms, setRooms] = useState<Room[]>(roomsData);
 
   return (
     <div className="m-4 flex">
@@ -30,7 +24,7 @@ function App() {
         <UserList users={users} />
       </div>
       <div className="">
-        <Map rooms={rooms} />
+        <RoomList rooms={rooms} placeUser={placeUser} />
       </div>
     </div>
   );

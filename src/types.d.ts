@@ -1,6 +1,7 @@
 type Room = {
     name: string;
-    place: number;
+    capacity: number;
+    users: User[]
 }
 
 type Building = {

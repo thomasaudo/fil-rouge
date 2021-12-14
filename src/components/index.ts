@@ -1,8 +1,8 @@
-import { Map } from "./Map";
+import { RoomList } from "./RoomList";
 import { RoomDetails } from "./RoomDetails";
 import { UserDetails } from "./UserDetails";
 import { UserList } from "./UserList";
 
 export {
-    Map, RoomDetails, UserDetails, UserList
+    RoomList, RoomDetails, UserDetails, UserList
 }
