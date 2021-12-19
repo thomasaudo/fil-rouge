@@ -17,6 +17,14 @@ function App() {
    * @param room
    */
   const placeUser = (user: User, room: Room) => {
+    // Je ne comprends pas pourquoi ce bout de code met à jour le state
+    if (user.room) {
+      let oldRoom = rooms.find((x) => x.name === user.room)
+      if( oldRoom) {
+        oldRoom.users = oldRoom.users.filter((x) => x.name !== user.name);
+      }
+    }
+    user.room = room.name
     let updatedRoom = rooms.find((x) => x.name === room.name);
     if (updatedRoom) {
       updatedRoom.users.push(user);

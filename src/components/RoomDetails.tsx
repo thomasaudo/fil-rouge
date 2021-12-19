@@ -1,3 +1,4 @@
+import { DragEvent } from "react";
 import { Room, User } from "../types";
 
 const RoomDetails = (props: { room: Room; removeUser: Function }) => {
@@ -5,6 +6,10 @@ const RoomDetails = (props: { room: Room; removeUser: Function }) => {
 
   const removeUser = (user: User) => {
     props.removeUser(user, room);
+  };
+  
+  const handleDragStart = (e: DragEvent<HTMLDivElement>, user: User) => {
+    e.dataTransfer.setData("user", JSON.stringify(user));
   };
 
   return (
@@ -17,6 +22,8 @@ const RoomDetails = (props: { room: Room; removeUser: Function }) => {
           <div
             className="bg-red-300 rounded-md p-2 text-red-700 mr-2"
             key={user.name}
+            draggable={true}
+            onDragStart={(e) => handleDragStart(e, user)}
           >
             <sup className="float-right text-xs" onClick={() => removeUser(user)}>
               x
