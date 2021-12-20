@@ -14,7 +14,7 @@ Ce projet permet d'affecter des utilisateurs à une salle.
  - Il est également possible de retirer un utilisateur d'une salle. On peut également modifier sa salle en utilisant le 'Drag and Drop'
 
 ## Refactoring
- - La gestion du state et la définition des structures de données sont mauvaises, je me retrouve à devoir modifier un tableau imbriqué dans un autre ce qui le rend la modification d'état beaucoup plus compliquée.
+ - La gestion du state et la définition des structures de données sont mauvaises, je me retrouve à devoir modifier un tableau imbriqué dans un autre ce qui le rend la modification d'état beaucoup plus compliquée. En utilisant une Map<Room, String> la gestion aurai été beaucoup plus simple.
   - Utiliser un gestionnaire d'état style Redux
 
 ## BUG
