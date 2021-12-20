@@ -28,7 +28,7 @@ const RoomDetails = (props: {
           <select onChange={handleCategoryChange}>
             {Object.keys(RoomCategory).map((r) => (
               <option
-                defaultChecked={(RoomCategory as any)[r] === room.category}
+                selected={(RoomCategory as any)[r] === room.category}
                 key={r}
                 value={r}
               >

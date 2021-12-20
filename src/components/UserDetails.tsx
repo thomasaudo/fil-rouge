@@ -1,7 +1,7 @@
 import { DragEvent } from "react";
 import { User } from "../types";
 
-const UserDetails = (props: { user: User }) => {
+const UserDetails = (props: { user: User, fromSearchBar?: boolean }) => {
   const { user } = props;
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {

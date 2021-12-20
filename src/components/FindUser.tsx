@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { UserDetails } from ".";
 import { User } from "../types";
 
@@ -31,7 +31,7 @@ const FindUser = (props: { findUser: Function }) => {
         />
       </form>
       {name.length > 0 && users.map((u) => (
-        <UserDetails user={u} key={u.name} />
+        <UserDetails fromSearchBar={true} user={u} key={u.name} />
       ))}
     </div>
   );

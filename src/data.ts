@@ -19,9 +19,9 @@ const roomsData: Room[] = [
        ]
     },
     {
-      "name":"Ile et Vilaine",
+      "name":"Ille-et-Vilaine",
       "capacity":2,
-      category: RoomCategory.AMPHITEATRE,
+      category: RoomCategory.LABORATOIRE,
       "users":[
          
       ]
@@ -48,15 +48,6 @@ const usersData: User[] = [
     },
     {
       "name":"Malcom"
-    },
-    {
-      "name":"Théophile"
-    },
-    {
-      "name":"Arthur"
-    },
-    {
-      "name":"Adrien"
     }
  ]
 
