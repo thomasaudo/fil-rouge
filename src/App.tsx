@@ -3,7 +3,7 @@ import { UserList, RoomList } from "./components";
 import { AddUser } from "./components/AddUser";
 import { FindUser } from "./components/FindUser";
 import { roomsData, usersData } from "./data";
-import { Room, User } from "./types";
+import { Room, RoomCategory, User } from "./types";
 
 function App() {
   /**
@@ -19,17 +19,17 @@ function App() {
   const placeUser = (user: User, room: Room) => {
     // Je ne comprends pas pourquoi ce bout de code met à jour le state
     if (user.room) {
-      let oldRoom = rooms.find((x) => x.name === user.room)
-      if( oldRoom) {
+      let oldRoom = rooms.find((x) => x.name === user.room);
+      if (oldRoom) {
         oldRoom.users = oldRoom.users.filter((x) => x.name !== user.name);
       }
     }
-    user.room = room.name
+    user.room = room.name;
     let updatedRoom = rooms.find((x) => x.name === room.name);
     if (updatedRoom) {
       updatedRoom.users.push(user);
       setRooms(
-        orderArray([updatedRoom, ...rooms.filter((x) => x.name !== room.name)])
+        orderRooms([updatedRoom, ...rooms.filter((x) => x.name !== room.name)])
       );
       setUsers(
         orderArray(
@@ -51,7 +51,7 @@ function App() {
     if (updatedRoom) {
       updatedRoom.users = updatedRoom.users.filter((x) => x.name !== user.name);
       setRooms(
-        orderArray([updatedRoom, ...rooms.filter((x) => x.name !== room.name)])
+        orderRooms([updatedRoom, ...rooms.filter((x) => x.name !== room.name)])
       );
       setUsers(
         orderArray(
@@ -73,12 +73,26 @@ function App() {
 
   const orderArray = <T extends { name: string }>(data: T[]): T[] => {
     return data.sort((a, b) => {
-      return a.name > b.name ? -1 : 1;
+      return a.name > b.name ? 1 : -1;
     });
   };
 
+  const orderRooms = (rooms: Room[]) => {
+    return rooms.sort((a, b) => (a.category > b.category ? 1 : -1));
+  };
+
+  const changeRoomCategory = (room: Room, category: RoomCategory) => {
+    let updatedRoom = rooms.find((x) => x.name === room.name);
+    if (updatedRoom) {
+      updatedRoom.category = (RoomCategory as any)[category];
+      setRooms(
+        orderRooms([updatedRoom, ...rooms.filter((x) => x.name !== room.name)])
+      );
+    }
+  };
+
   const [users, setUsers] = useState<User[]>(orderArray(usersData));
-  const [rooms, setRooms] = useState<Room[]>(orderArray(roomsData));
+  const [rooms, setRooms] = useState<Room[]>(orderRooms(roomsData));
 
   return (
     <div className="w-full">
@@ -88,7 +102,7 @@ function App() {
       </p>
       <p className="mx-4 text-sm text-gray-800">
         Chaque salle dispose d'un nombre limité de place. Une salle fait
-        également partie d'une catégorie.
+        également partie d'une catégorie. Les salles sont triées par catégorie.
       </p>
       <p className="mx-4 text-sm text-gray-800">
         Il est possible d'ajouter un utilisateur ainsi que de rechercher des
@@ -115,6 +129,7 @@ function App() {
             rooms={rooms}
             placeUser={placeUser}
             removeUser={removeUser}
+            changeRoomCategory={changeRoomCategory}
           />
         </div>
       </div>

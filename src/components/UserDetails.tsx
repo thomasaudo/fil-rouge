@@ -10,8 +10,8 @@ const UserDetails = (props: { user: User }) => {
 
   const computeClass = () => {
     return user.room
-      ? "border-2 border-gray-100 rounded-md p-4 my-2 shadow-md shadow-red-200"
-      : "border-2 border-gray-100 rounded-md p-4 my-2 shadow-md shadow-green-200";
+      ? "border-2 border-gray-100 rounded-md p-4 my-2 shadow-md shadow-red-200 hover:shadow-lg hover:shadow-red-300"
+      : "border-2 border-gray-100 rounded-md p-4 my-2 shadow-md shadow-green-200 hover:shadow-lg hover:shadow-green-300";
   };
 
   return (

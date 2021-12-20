@@ -1,20 +1,43 @@
-import { DragEvent } from "react";
-import { Room, User } from "../types";
+import { ChangeEvent, DragEvent } from "react";
+import { Room, RoomCategory, User } from "../types";
 
-const RoomDetails = (props: { room: Room; removeUser: Function }) => {
+const RoomDetails = (props: {
+  room: Room;
+  removeUser: Function;
+  changeRoomCategory: Function;
+}) => {
   const { room } = props;
 
   const removeUser = (user: User) => {
     props.removeUser(user, room);
   };
-  
+
   const handleDragStart = (e: DragEvent<HTMLDivElement>, user: User) => {
     e.dataTransfer.setData("user", JSON.stringify(user));
   };
 
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    props.changeRoomCategory(room, e.target.value);
+  };
+
   return (
     <>
-      <p>Room: {room.name} </p>
+      <div className="flex justify-between font-semibold text-gray-700 mb-2">
+        <p>{room.name} </p>
+        <p className="ml-4 text-blue-500">
+          <select onChange={handleCategoryChange}>
+            {Object.keys(RoomCategory).map((r) => (
+              <option
+                defaultChecked={(RoomCategory as any)[r] === room.category}
+                key={r}
+                value={r}
+              >
+                {(RoomCategory as any)[r]}
+              </option>
+            ))}
+          </select>
+        </p>
+      </div>
       <p>Capacity: {room.capacity} </p>
       <p>Available: {room.capacity - room.users.length}</p>
       <div className="flex">
@@ -25,7 +48,10 @@ const RoomDetails = (props: { room: Room; removeUser: Function }) => {
             draggable={true}
             onDragStart={(e) => handleDragStart(e, user)}
           >
-            <sup className="float-right text-xs" onClick={() => removeUser(user)}>
+            <sup
+              className="float-right text-xs"
+              onClick={() => removeUser(user)}
+            >
               x
             </sup>
             {user.name}

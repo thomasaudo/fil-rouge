@@ -6,6 +6,7 @@ const RoomList = (props: {
   rooms: Room[];
   placeUser: Function;
   removeUser: Function;
+  changeRoomCategory: Function;
 }) => {
   const handleDrop = (e: DragEvent<HTMLDivElement>, room: Room) => {
     if (room.capacity > room.users.length) {
@@ -23,9 +24,13 @@ const RoomList = (props: {
             onDrop={(e) => handleDrop(e, room)}
             onDragOver={(e) => e.preventDefault()}
             key={room.name}
-            className="rounded-md p-4 my-2 mx-2 shadow shadow-blue-200"
+            className="rounded-md p-4 my-2 mx-2 shadow shadow-blue-200 hover:shadow-lg hover:shadow-blue-300"
           >
-            <RoomDetails room={room} removeUser={props.removeUser} />
+            <RoomDetails
+              changeRoomCategory={props.changeRoomCategory}
+              room={room}
+              removeUser={props.removeUser}
+            />
           </div>
         ))}
       </div>
